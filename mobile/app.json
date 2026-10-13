@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "ClassPilot AI",
+    "slug": "classpilot-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "classpilot",
+    "userInterfaceStyle": "automatic",
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

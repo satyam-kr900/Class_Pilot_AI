@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply text-slate-800 antialiased;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(32, 184, 121, 0.25), transparent),
+    radial-gradient(1000px 500px at 90% 0%, rgba(108, 99, 255, 0.22), transparent),
+    radial-gradient(800px 500px at 50% 110%, rgba(240, 79, 56, 0.14), transparent),
+    linear-gradient(180deg, #eef7f4 0%, #e8f0fb 100%);
+  min-height: 100vh;
+}
+
+@layer components {
+  .glass {
+    @apply rounded-3xl border border-white/30 bg-white/15 shadow-[0_8px_32px_rgba(11,61,98,0.12)] backdrop-blur-xl;
+  }
+  .glass-strong {
+    @apply rounded-3xl border border-white/30 bg-white/30 shadow-[0_8px_32px_rgba(11,61,98,0.14)] backdrop-blur-2xl;
+  }
+  .glass-input {
+    @apply w-full rounded-2xl border border-white/40 bg-white/25 px-4 py-3 text-sm text-slate-800 placeholder:text-slate-500 outline-none backdrop-blur-xl focus:border-red-400 focus:bg-white/40;
+  }
+  .btn-primary {
+    @apply rounded-2xl bg-gradient-to-r from-red-500 to-rose-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-red-500/25 transition hover:opacity-90 active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply rounded-2xl border border-white/40 bg-white/20 px-5 py-3 text-sm font-bold text-slate-700 backdrop-blur-xl transition hover:bg-white/35;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full border border-white/40 bg-white/25 px-3 py-1 text-xs font-semibold backdrop-blur-xl;
+  }
+}
