@@ -108,18 +108,15 @@ export default function Home() {
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_450px_at_15%_0%,rgba(16,185,129,0.18),transparent),radial-gradient(800px_450px_at_90%_10%,rgba(37,99,235,0.16),transparent)]" />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20">
+        <div className="relative mx-auto max-w-3xl px-4 py-14 text-center sm:px-6 lg:py-20">
           <div>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-red-300/60 bg-red-50 px-3 py-1 text-xs font-extrabold text-red-700">
-              ✨ Coaching institutes ke liye — Web + Mobile + AI
-            </span>
             <h1 className="mt-4 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
               Poora coaching institute, <span className="bg-gradient-to-r from-red-600 to-rose-600 bg-clip-text text-transparent">ek app me.</span>
             </h1>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
               Students, batches, attendance, fees with receipts, homework, exams aur parent updates — owner se parent tak, sabka apna dashboard.
             </p>
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
               <Link href="/login" className="rounded-2xl bg-red-600 px-7 py-3.5 text-center text-sm font-extrabold text-white shadow-xl shadow-red-600/30 transition hover:bg-red-500 active:scale-[0.98]">
                 Free me shuru karo →
               </Link>
@@ -127,45 +124,10 @@ export default function Home() {
                 Apna role chuno
               </Link>
             </div>
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-slate-500">
+            <div className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs font-semibold text-slate-500">
               <span>✓ Free plan, card nahi chahiye</span>
               <span>✓ Hindi + English</span>
               <span>✓ Phone pe chalta hai</span>
-            </div>
-          </div>
-
-          {/* APP PREVIEW */}
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl border border-white/60 bg-white shadow-2xl">
-              <div className="flex items-center justify-between bg-[#0a1633] px-4 py-3 text-white">
-                <p className="text-xs font-extrabold">🎓 ClassPilot AI — Preview</p>
-                <span className="rounded-full bg-red-500/25 px-2 py-0.5 text-[10px] font-bold text-red-200">Live after login</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2 p-3 sm:grid-cols-4">
-                {["Students", "Fees", "Attendance", "Batches"].map((l) => (
-                  <div key={l} className="rounded-2xl bg-slate-50 p-3">
-                    <p className="text-[10px] font-semibold text-slate-500">{l}</p>
-                    <p className="text-lg font-extrabold text-slate-300">—</p>
-                  </div>
-                ))}
-              </div>
-              <div className="space-y-2 p-3 pt-0">
-                {[
-                  ["✅", "Attendance saved — 10th-A, 24/25 present"],
-                  ["💰", "Fee collected — receipt R-8X2KQ9 generated"],
-                  ["📝", "Homework assigned — Maths Ch.5, due Friday"],
-                ].map(([i, t]) => (
-                  <div key={t} className="flex items-center gap-2 rounded-2xl border border-slate-100 bg-white px-3 py-2.5 text-xs font-semibold shadow-sm">
-                    <span>{i}</span> {t}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="absolute -left-3 top-8 hidden rounded-2xl border bg-white/90 px-3 py-2 text-[11px] font-bold shadow-xl backdrop-blur sm:block">
-              👨‍👩‍👧 Parent: fee due dekha ✓
-            </div>
-            <div className="absolute -right-3 bottom-8 hidden rounded-2xl border bg-white/90 px-3 py-2 text-[11px] font-bold shadow-xl backdrop-blur sm:block">
-              🤖 AI: 5 dues pending hain
             </div>
           </div>
         </div>
