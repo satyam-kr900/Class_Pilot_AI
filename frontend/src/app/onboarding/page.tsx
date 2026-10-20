@@ -18,12 +18,10 @@ const ROLE_JOIN_HINT: Record<string, string> = {
   student: "🎓 Student role chuna tha? Apne record se link hone ke liye institute se account linking mango. Tab tak explore karne ke liye neeche apna demo institute banao.",
 };
 
-type OnboardingFormProps = {
-  wantRole: string;
-};
-
-function OnboardingForm({ wantRole }: OnboardingFormProps) {
+function OnboardingForm() {
   const router = useRouter();
+  const search = useSearchParams();
+  const wantRole = search.get("role") || "";
   const joinHint = ROLE_JOIN_HINT[wantRole] ?? "";
   const [checking, setChecking] = useState(true);
   const [verified, setVerified] = useState<Verified | null>(null);
@@ -140,14 +138,9 @@ function OnboardingForm({ wantRole }: OnboardingFormProps) {
 }
 
 export default function OnboardingPage() {
-  const router = useRouter();
-  const search = useSearchParams();
-  const wantRole = search.get("role") || "";
-  const joinHint = ROLE_JOIN_HINT[wantRole] ?? "";
-
   return (
     <Suspense fallback={<main className="mx-auto flex min-h-screen max-w-2xl items-center justify-center px-4"><p className="text-sm">Loading...</p></main>}>
-      <OnboardingForm wantRole={wantRole} />
+      <OnboardingForm />
     </Suspense>
   );
 }
