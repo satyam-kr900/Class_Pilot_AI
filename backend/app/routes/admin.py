@@ -58,6 +58,8 @@ class TeacherCreate(BaseModel):
     email: str
     password: str | None = None
     batch_ids: list[str] = Field(default_factory=list)
+    pic_url: str | None = None
+    full_address: str | None = None
 
 
 class StudentFullCreate(BaseModel):
@@ -77,6 +79,8 @@ class LearnerAccountCreate(BaseModel):
     password: str | None = None
     student_id: str
     guardian_id: str | None = None  # required when kind=parent
+    pic_url: str | None = None
+    full_address: str | None = None
 
 
 @router.post("/teacher", status_code=201)
@@ -93,7 +97,12 @@ def admin_create_teacher(payload: TeacherCreate, user: dict = Depends(get_curren
         sb.table("institute_members").insert(
             {"institute_id": payload.institute_id, "user_id": uid, "role": "teacher"}
         ).execute()
-        sb.table("profiles").upsert({"id": uid, "full_name": payload.name.strip()}).execute()
+        profile_data: dict = {"id": uid, "full_name": payload.name.strip()}
+        if (payload.pic_url or "").strip():
+            profile_data["pic_url"] = payload.pic_url.strip()
+        if (payload.full_address or "").strip():
+            profile_data["full_address"] = payload.full_address.strip()
+        sb.table("profiles").upsert(profile_data).execute()
         for bid in payload.batch_ids:
             b = first_row(sb.table("batches").select("id").eq("id", bid).eq("institute_id", payload.institute_id).execute())
             if b:
@@ -133,6 +142,7 @@ def admin_create_student_full(payload: StudentFullCreate, user: dict = Depends(g
         "student_phone": sphone,
         "status": "active",
         "admission_no": "ADM-" + "".join(random.choices(string.ascii_uppercase + string.digits, k=6)),
+        "pic_url": payload.pic_url,
     }
     created = first_row(sb.table("students").insert(student).select().execute())
     if not created:
@@ -190,7 +200,12 @@ def admin_create_learner_account(payload: LearnerAccountCreate, user: dict = Dep
             sb.table("students").update({"user_id": uid}).eq("id", payload.student_id).execute()
         else:
             sb.table("guardians").update({"user_id": uid}).eq("id", gid).execute()
-        sb.table("profiles").upsert({"id": uid, "full_name": email.split("@")[0]}).execute()
+        profile_data: dict = {"id": uid, "full_name": email.split("@")[0]}
+        if (payload.pic_url or "").strip():
+            profile_data["pic_url"] = payload.pic_url.strip()
+        if (payload.full_address or "").strip():
+            profile_data["full_address"] = payload.full_address.strip()
+        sb.table("profiles").upsert(profile_data).execute()
     except Exception as e:
         try:
             sb.auth.admin.delete_user(uid)

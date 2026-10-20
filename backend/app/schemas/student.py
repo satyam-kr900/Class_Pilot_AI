@@ -19,6 +19,7 @@ class StudentCreate(BaseModel):
     guardian_phone: str | None = None
     student_phone: str | None = None  # personal mobile (self login finder)
     class_name: str | None = None
+    pic_url: str | None = None
 
 
 class StudentUpdate(BaseModel):
@@ -30,6 +31,7 @@ class StudentUpdate(BaseModel):
     guardian_phone: str | None = None
     student_phone: str | None = None
     class_name: str | None = None
+    pic_url: str | None = None
 
 
 class StudentOut(BaseModel):
@@ -44,6 +46,7 @@ class StudentOut(BaseModel):
     guardian_name: str | None = None
     guardian_phone: str | None = None
     student_phone: str | None = None
+    pic_url: str | None = None
 
 
 class FeePaymentCreate(BaseModel):

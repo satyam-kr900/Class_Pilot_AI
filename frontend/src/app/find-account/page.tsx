@@ -57,9 +57,9 @@ function FinderForm() {
 
   return (
     <main className="mx-auto flex min-h-screen max-w-md items-center justify-center px-4">
-      <div className="glass-strong w-full space-y-3 p-8">
-        <h1 className="text-2xl font-extrabold">📱 Account dhoondo</h1>
-        <p className="text-xs text-slate-500">
+      <div className="glass-strong w-full space-y-4 md:space-y-3 p-6 md:p-8">
+        <h1 className="text-2xl md:text-3xl font-extrabold">📱 Account dhoondo</h1>
+        <p className="text-sm md:text-base text-slate-500">
           Parent: <b>institute + bacche ka naam + PARENT mobile</b> (form wala).
           Student: <b>institute + apna naam + PERSONAL mobile</b>. Milte hi login email ka hint milega.
         </p>

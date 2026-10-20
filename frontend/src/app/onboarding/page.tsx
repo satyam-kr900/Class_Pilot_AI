@@ -18,17 +18,13 @@ const ROLE_JOIN_HINT: Record<string, string> = {
   student: "🎓 Student role chuna tha? Apne record se link hone ke liye institute se account linking mango. Tab tak explore karne ke liye neeche apna demo institute banao.",
 };
 
-export default function OnboardingPage() {
-  return (
-    <Suspense fallback={<main className="mx-auto flex min-h-screen max-w-2xl items-center justify-center px-4"><p className="text-sm">Loading...</p></main>}>
-      <OnboardingForm />
-    </Suspense>
-  );
-}
+type OnboardingFormProps = {
+  wantRole: string;
+};
 
-function OnboardingForm() {
+function OnboardingForm({ wantRole }: OnboardingFormProps) {
   const router = useRouter();
-  const joinHint = ROLE_JOIN_HINT[useSearchParams().get("role") || ""] ?? "";
+  const joinHint = ROLE_JOIN_HINT[wantRole] ?? "";
   const [checking, setChecking] = useState(true);
   const [verified, setVerified] = useState<Verified | null>(null);
   const [name, setName] = useState("");
@@ -125,12 +121,33 @@ function OnboardingForm() {
               <p className="text-lg font-extrabold">{verified.stats.batches}</p>
               <p className="mt-2 break-all text-[11px] text-slate-400">ID: {verified.institute.id}</p>
             </div>
-            <button onClick={() => router.push("/dashboard")} className="btn-primary w-full">Open Dashboard →</button>
+            <button
+              onClick={() => {
+                if (wantRole && wantRole !== "owner") router.push(`/profile`);
+                else router.push("/dashboard");
+              }}
+              className="btn-primary w-full"
+            >
+              Open Dashboard →
+            </button>
             <button onClick={() => setVerified(null)} className="btn-ghost w-full">+ Ek aur institute banao</button>
           </>
         )}
         <Link href="/dashboard" className="block text-center text-xs font-semibold text-slate-500 underline">Skip → Dashboard</Link>
       </div>
     </main>
+  );
+}
+
+export default function OnboardingPage() {
+  const router = useRouter();
+  const search = useSearchParams();
+  const wantRole = search.get("role") || "";
+  const joinHint = ROLE_JOIN_HINT[wantRole] ?? "";
+
+  return (
+    <Suspense fallback={<main className="mx-auto flex min-h-screen max-w-2xl items-center justify-center px-4"><p className="text-sm">Loading...</p></main>}>
+      <OnboardingForm wantRole={wantRole} />
+    </Suspense>
   );
 }

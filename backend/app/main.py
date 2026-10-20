@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import logging
 from app.core.config import settings
-from app.routes import auth, students, classes, fees, attendance, insights, institutes, batches, sessions, assignments, exams, materials, enquiries, portals, ai, subscriptions, notifications, billing, admin
+from app.routes import auth, students, classes, fees, attendance, insights, institutes, batches, sessions, assignments, exams, materials, enquiries, portals, ai, subscriptions, notifications, billing, admin, profiles, teachers
 
 log = logging.getLogger("classpilot")
 
@@ -74,6 +74,8 @@ app.include_router(subscriptions.router, prefix="/api/v1")
 app.include_router(notifications.router, prefix="/api/v1")
 app.include_router(billing.router, prefix="/api/v1")
 app.include_router(admin.router, prefix="/api/v1")
+app.include_router(profiles.router, prefix="/api/v1")
+app.include_router(teachers.router, prefix="/api/v1")
 
 @app.get("/")
 def root():

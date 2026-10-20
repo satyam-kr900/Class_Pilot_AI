@@ -33,15 +33,15 @@ export default function Sidebar() {
   const { role } = useInstitute();
   const links = role === "student" || role === "parent" ? LEARNER_LINKS : STAFF_LINKS;
   return (
-    <aside className="glass w-full shrink-0 p-3 lg:w-56">
-      <div className="flex gap-2 overflow-x-auto lg:flex-col">
+    <aside className="glass w-full shrink-0 p-3 lg:w-56 max-w-xs">
+      <div className="flex flex-col gap-2 overflow-x-auto lg:flex-row">
         {links.map((l) => {
           const active = path === l.href;
           return (
             <Link
               key={l.href}
               href={l.href}
-              className={`rounded-2xl px-4 py-2.5 text-sm font-bold transition ${
+              className={`rounded-2xl px-4 py-2 text-sm font-bold transition ${
                 active
                   ? "bg-red-500/90 text-white shadow-lg"
                   : "bg-white/20 text-slate-700 hover:bg-white/40"

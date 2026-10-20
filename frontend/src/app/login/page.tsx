@@ -59,12 +59,18 @@ function LoginForm() {
     return message;
   }
 
-  /** Login ke baad: institute hai → dashboard, nahi hai → onboarding (naam wala page). */
+  /** Login ke baad: institute hai → dashboard, role-specific profile hai → profile, nahi hai → onboarding. */
   async function nextRoute(accessToken: string): Promise<string> {
     try {
       const res = await myInstitutes(accessToken);
-      if (res.memberships.length > 0) return "/dashboard";
-      // Naya user + role card se aaya (teacher/student/parent) → onboarding ko hint do
+      if (res.memberships.length > 0) {
+        // Role-specific: teacher/parent/student → profile, owner → dashboard
+        const role = (res.memberships[0]?.role || "").toLowerCase();
+        if (role === "owner") return "/dashboard";
+        if (role === "teacher" || role === "parent" || role === "student") return "/profile";
+        return "/dashboard";
+      }
+      // Naya user + role card se aaya → onboarding ko hint do
       if (wantRole && wantRole !== "owner" && ROLE_BANNERS[wantRole]) return `/onboarding?role=${wantRole}`;
       return "/onboarding";
     } catch {
@@ -226,8 +232,8 @@ function LoginForm() {
         )}
         <input className="glass-input" placeholder="Email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         <div className="relative">
-          <input className="glass-input w-full pr-16" placeholder="Password" type={showPw ? "text" : "password"} autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500">
+          <input className="glass-input w-full pr-14" placeholder="Password" type={showPw ? "text" : "password"} autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-2 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-500">
             {showPw ? "Hide" : "Show"}
           </button>
         </div>
